@@ -85,18 +85,18 @@ fildsWraper.style.display = 'flex';
 fildsWraper.style.gap = '10px';
 fildsWraper.style.marginTop = '20px';
 
-fields = document.querySelectorAll('.field');
+const fields = document.querySelectorAll('.field');
 for (const item of fields) {
   item.style.display = 'flex';
   item.style.flexDirection = 'column';
 }
-value = document.querySelectorAll('.value');
+const value = document.querySelectorAll('.value');
 for (const item of value) {
   item.style.fontWeight = '600';
   item.style.fontSize = '30px';
 }
 
-label = document.querySelectorAll('.label');
+const label = document.querySelectorAll('.label');
 for (const item of label) {
   item.style.fontWeight = '400';
 }
