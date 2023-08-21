@@ -27,7 +27,7 @@ const options = {
   defaultDate: new Date(),
   minuteIncrement: 1,
   onClose(selectedDates) {
-    currentDate = options.defaultDate.getTime();
+    const currentDate = options.defaultDate.getTime();
     timeUsr = selectedDates[0].getTime();
     if (timeUsr < currentDate) {
       Notify.failure('Please choose a date in the future');
@@ -80,7 +80,7 @@ function convertMs(ms) {
 }
 
 // style
-fildsWraper = document.querySelector('.timer');
+const fildsWraper = document.querySelector('.timer');
 fildsWraper.style.display = 'flex';
 fildsWraper.style.gap = '10px';
 fildsWraper.style.marginTop = '20px';
