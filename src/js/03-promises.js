@@ -1,10 +1,5 @@
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
-// const delay = document.querySelector('[name=delay]').valueAsNumber;
-// const step = document.querySelector('[name=step]');
-// const amount = document.querySelector('[name=amount]').valueAsNumber;
-// const btn = document.querySelector('[type=submit]');
-
 const form = document.querySelector('.form');
 let firstdelay;
 let amount;
@@ -19,31 +14,33 @@ function generate(evt) {
   firstdelay = evt.currentTarget[0].value;
   delay = Number(firstdelay) + Number(step);
 
-  // setInterval(() => {}, step);
-  // setTimeout(() => {}, firstdelay);
-  for (let i = 1; i <= amount; i++) {
-    createPromise(i, Number(firstdelay) + Number(step) * (i - 1));
-  }
-}
-
-function createPromise(position, delay) {
-  const shouldResolve = Math.random() > 0.3;
-
-  const promise = new Promise((fulfill, reject) => {
-    if (shouldResolve) {
-      // Fulfill
-      fulfill({ position, delay });
-    } else {
-      // Reject
-      reject({ position, delay });
+  setTimeout(() => {
+    for (let i = 1; i <= amount; i++) {
+      setTimeout(function () {
+        createPromise(i, Number(firstdelay) + Number(step) * (i - 1));
+      }, step * i);
     }
-  });
+  }, firstdelay);
 
-  promise
-    .then(({ position, delay }) => {
-      Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
-    })
-    .catch(({ position, delay }) => {
-      Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
+  function createPromise(position, delay) {
+    const shouldResolve = Math.random() > 0.3;
+
+    const promise = new Promise((fulfill, reject) => {
+      if (shouldResolve) {
+        // Fulfill
+        fulfill({ position, delay });
+      } else {
+        // Reject
+        reject({ position, delay });
+      }
     });
+
+    promise
+      .then(({ position, delay }) => {
+        Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
+      })
+      .catch(({ position, delay }) => {
+        Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
+      });
+  }
 }
