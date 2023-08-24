@@ -25,7 +25,6 @@ function generate(evt) {
     createPromise(i, Number(firstdelay) + Number(step) * (i - 1));
   }
 }
-setTimeout(generate, 2000);
 
 function createPromise(position, delay) {
   const shouldResolve = Math.random() > 0.3;
