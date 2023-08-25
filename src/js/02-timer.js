@@ -3,7 +3,7 @@ import 'flatpickr/dist/flatpickr.min.css';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 const startBtn = document.querySelector('[data-start]');
-const input = document.getElementById('datetime-picker');
+const inputTimer = document.getElementById('datetime-picker');
 let timerId;
 const sec = 1000;
 let ms;
@@ -41,7 +41,7 @@ const options = {
     function on(evt) {
       different = timeUsr - currentDate;
       startBtn.setAttribute('disabled', '');
-      input.setAttribute('disabled', '');
+      inputTimer.setAttribute('disabled', '');
 
       timerId = setInterval(() => {
         ms = different -= sec;
