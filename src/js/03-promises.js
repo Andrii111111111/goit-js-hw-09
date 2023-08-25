@@ -16,8 +16,13 @@ function generate(evt) {
 
   setTimeout(() => {
     for (let i = 1; i <= amount; i++) {
+      if (i === 1) {
+        createPromise(i, Number(firstdelay));
+      }
       setTimeout(function () {
-        createPromise(i, Number(firstdelay) + Number(step) * (i - 1));
+        if (i > 1) {
+          createPromise(i, Number(firstdelay) + Number(step) * (i - 1));
+        }
       }, step * i);
     }
   }, firstdelay);
