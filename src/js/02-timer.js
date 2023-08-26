@@ -7,6 +7,9 @@ const inputTimer = document.getElementById('datetime-picker');
 let timerId;
 const sec = 1000;
 let ms;
+let timeUsr;
+let different;
+startBtn.setAttribute('disabled', '');
 
 const elOfCounter = {
   day: document.querySelector('[data-days]'),
@@ -19,9 +22,6 @@ function addLeadingZero(value) {
   return value.toString().padStart(2, '0');
 }
 
-startBtn.setAttribute('disabled', '');
-let timeUsr;
-let different;
 const options = {
   enableTime: true,
   time_24hr: true,
@@ -32,33 +32,35 @@ const options = {
     timeUsr = selectedDates[0].getTime();
     if (timeUsr < currentDate) {
       Notify.failure('Please choose a date in the future');
+      startBtn.setAttribute('disabled', '');
     }
 
     if (timeUsr > currentDate) {
       startBtn.removeAttribute('disabled');
     }
-    startBtn.addEventListener('click', on);
-    function on(evt) {
-      different = timeUsr - currentDate;
-      startBtn.setAttribute('disabled', '');
-      inputTimer.setAttribute('disabled', '');
-
-      timerId = setInterval(() => {
-        ms = different -= sec;
-        elOfCounter.day.textContent = addLeadingZero(convertMs(ms).days);
-        elOfCounter.hour.textContent = addLeadingZero(convertMs(ms).hours);
-        elOfCounter.minute.textContent = addLeadingZero(convertMs(ms).minutes);
-        elOfCounter.second.textContent = addLeadingZero(convertMs(ms).seconds);
-        convertMs(ms);
-
-        if (ms < 999) {
-          clearInterval(timerId);
-          ms = 0;
-        }
-      }, 1000);
-    }
   },
 };
+startBtn.addEventListener('click', onT);
+function onT(evt) {
+  const currentDate = options.defaultDate.getTime();
+  different = timeUsr - currentDate;
+  startBtn.setAttribute('disabled', '');
+  inputTimer.setAttribute('disabled', '');
+
+  timerId = setInterval(() => {
+    ms = different -= sec;
+    elOfCounter.day.textContent = addLeadingZero(convertMs(ms).days);
+    elOfCounter.hour.textContent = addLeadingZero(convertMs(ms).hours);
+    elOfCounter.minute.textContent = addLeadingZero(convertMs(ms).minutes);
+    elOfCounter.second.textContent = addLeadingZero(convertMs(ms).seconds);
+
+    if (ms < 999) {
+      clearInterval(timerId);
+      ms = 0;
+    }
+  }, 1000);
+}
+
 flatpickr("input[type = 'text']", options);
 
 function convertMs(ms) {
