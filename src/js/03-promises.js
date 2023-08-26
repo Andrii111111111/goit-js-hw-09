@@ -41,7 +41,6 @@ function generate(evt) {
           // Reject
           reject({ position, delay });
         }
-        console.log(delay);
       }, delay);
     });
   }
