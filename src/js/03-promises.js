@@ -19,15 +19,17 @@ function generate(evt) {
           Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
         });
     }
-    setTimeout(() => {
-      createPromise(i, Number(delay) + Number(step) * i)
-        .then(({ position, delay }) => {
-          Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
-        })
-        .catch(({ position, delay }) => {
-          Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
-        });
-    }, step * i);
+    if (i > 1) {
+      setTimeout(() => {
+        createPromise(i, Number(delay) + Number(step) * i)
+          .then(({ position, delay }) => {
+            Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
+          })
+          .catch(({ position, delay }) => {
+            Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
+          });
+      }, step * i);
+    }
   }
 
   function createPromise(position, delay) {
