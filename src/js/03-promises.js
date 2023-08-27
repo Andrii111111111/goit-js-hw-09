@@ -10,7 +10,6 @@ function generate(evt) {
   let delay = Number(evt.target.elements.delay.value);
 
   for (let i = 1; i <= amount; i += 1) {
-    console.log(i);
     createPromise(i, delay)
       .then(({ position, delay }) => {
         Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
